@@ -6,11 +6,17 @@ import os
 import sys
 import json
 sys.path.append(os.getcwd())
+
 from swarm.docker_swarm import DockerSwarmInterface
 from marathon.mesos_marathon import MarathonInterface
 from kubernetes.kubernetes import KubernetesInterface
 from netscaler import NetscalerInterface
 from consul.cfg_file import ConfigFileDriver
+
+# Remove urllib insecure warning
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 logging.basicConfig(level=logging.CRITICAL,
         format='%(asctime)s  - %(levelname)s - [%(filename)s:%(funcName)-10s]  (%(threadName)s) %(message)s')
