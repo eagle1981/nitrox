@@ -83,8 +83,8 @@ class KubernetesInterface(object):
             return backends
         svc = response.json()
         # node port is the backend port we need. Handle only 1 port for now
-        nodePort = svc['spec']['ports'][0]['nodePort']  # TODO
-        if nodePort == 0:
+        nodePort = svc['spec']['ports'][0].get('nodePort')  # TODO
+        if (nodePort == 0) or (nodePort == None):
             logger.warn("Service %s does not have a node port" % appid)
             return backends
         # find the endpoint for the service so that we can find its pods
